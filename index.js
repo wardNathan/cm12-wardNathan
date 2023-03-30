@@ -27,12 +27,12 @@ const init = () => {
             message: 'What would you like to do?',
             choices: [{name: 'View all departments', value: 'viewAllDeparments'},
                     {name: 'View all roles', value: 'viewAllRoles'},
-                    // 'View all employees',
-                    // 'Enter a department',
-                    // 'Enter a role',
-                    // 'Enter an employee',
-                    // 'Update an employee role',
-                    // 'Quit'
+                    {name: 'View all employeses', value: 'viewAllEmployees'},
+                    {name: 'Enter a department', value: 'enterADepartment'},
+                    {name: 'Enter a role', value: 'enterARole'},
+                    {name: 'Enter a employee', value: 'enterAEmployee'},
+                    {name: 'Update an employee role', value: 'updateAnEmployeeRole'},
+                    {name: 'Quit', value: 'quit'}
                 ],
         }
     ])
@@ -45,22 +45,22 @@ const init = () => {
             case 'viewAllRoles':
                 viewRoles();
                 break;
-            case 'View all employees':
+            case 'viewAllEmployees':
                 viewEmployees();
                 break;
-            case 'Enter a department':
+            case 'enterADepartment':
                 addDept();
                 break;
-            case 'Enter a role':
+            case 'enterARole':
                 addRole();
                 break;
-            case 'Enter an employee':
+            case 'enterAEmployee':
                 addEmployee();
                 break;
-            case 'Update an employee role':
+            case 'updateAnEmployeeRole':
                 updateRole();
                 break;
-            case 'Quit':
+            case 'quit':
                 console.log("Thank you for using Employee Tracker!");
                 process.exit();
             default: process.exit();
