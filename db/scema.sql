@@ -1,4 +1,5 @@
 DROP DATABASE IF EXISTS personnel_db;
+
 CREATE DATABASE personnel_db;
 
 USE personnel_db;
