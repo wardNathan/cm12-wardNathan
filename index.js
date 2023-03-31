@@ -1,7 +1,7 @@
 const inquirer = require('inquirer');
 const mysql = require('mysql2');
 const express = require('express');
-
+require('dotenv').config();
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -10,7 +10,7 @@ app.use(express.json());
 
 const db = mysql.createConnection(
     {
-        host: '127.0.0.1',
+        host: 'localhost',
         user: 'root',
         password: process.env.MYSQL_PASSWORD,
         database: 'personnel_db'
@@ -19,15 +19,14 @@ const db = mysql.createConnection(
 );
 
 const init = () => {
-    // console.log("\n--------------\n");
     inquirer .prompt([
         {
             type: 'list',
             name: 'options',
             message: 'What would you like to do?',
-            choices: [{name: 'View all departments', value: 'viewAllDeparments'},
+            choices: [{name: 'View all departments', value: 'viewAllDepartments'},
                     {name: 'View all roles', value: 'viewAllRoles'},
-                    {name: 'View all employeses', value: 'viewAllEmployees'},
+                    {name: 'View all employees', value: 'viewAllEmployees'},
                     {name: 'Enter a department', value: 'enterADepartment'},
                     {name: 'Enter a role', value: 'enterARole'},
                     {name: 'Enter a employee', value: 'enterAEmployee'},
@@ -38,8 +37,8 @@ const init = () => {
     ])
 
     .then((data) => {
-        switch(data.choices) {
-            case 'viewAllDeparments':
+        switch(data.options) {
+            case 'viewAllDepartments':
                 viewDepts();
                 break;
             case 'viewAllRoles':
@@ -87,7 +86,7 @@ const viewRoles = () => {
 }
 
 const viewEmployees = () => {
-    const sql = `SELECT A.id, A.first_name, A.last_name, role.title, department.name AS department, role.salary, concat(B.first_name, ' ', B.last_name) AS manager FROM employee A JOIN role ON A.role_id = role.id JOIN department ON role.department_id = department.id LEFT JOIN employee B ON A.manager_id = B.id;`;
+    const sql = `SELECT A.id, A.first_name, A.last_name, role.title, department.name AS department, role.salary, Concat(B.first_name, ' ', B.last_name) AS manager FROM employee A LEFT JOIN role ON A.role_id = role.id LEFT JOIN department ON role.department_id = department.id LEFT JOIN employee B ON A.manager_id = B.id;`;
     db.query(sql, (err, res) => {
         if (err) throw err;
         console.table(res);
